@@ -1,0 +1,19 @@
+{
+  "name": "mongo",
+  "version": "1.0.0",
+  "description": "MongoDB/Express back-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Glen-Taylor37/MongoDB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Glen-Taylor37/MongoDB/issues"
+  },
+  "homepage": "https://github.com/Glen-Taylor37/MongoDB#readme"
+}
