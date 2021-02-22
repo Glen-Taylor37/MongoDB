@@ -12,11 +12,11 @@ const start = async () => {
 	app.use(cors());
 	app.use(router);
 
+	await usersClient.init();
+
 	app.listen(config.PORT, () => {
 		console.log(`App listening at port: ${config.PORT}`);
 	});
-
-	await usersClient.init();
 };
 
 module.exports = { start };

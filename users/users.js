@@ -12,6 +12,11 @@ class Users extends Mongo {
 	getUsers() {}
 
 	updateUser(user) {}
+
+	async addJournal(document) {
+		const newJournalDocument = await this.insert('journals', document);
+		return newJournalDocument;
+	}
 }
 
 module.exports = new Users();

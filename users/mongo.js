@@ -14,6 +14,21 @@ class Mongo {
 	async init() {
 		await this.client.connect();
 	}
+
+	async insert(collectionName, document) {
+		const result = await this.client
+			.db('test')
+			.collection(collectionName)
+			.insertOne(document);
+
+		const resultDocument = await this.client
+			.db('test')
+			.collection(collectionName)
+			.findOne({ _id: result.insertedId });
+
+		console.log(resultDocument);
+		return resultDocument;
+	}
 }
 
 module.exports = Mongo;
