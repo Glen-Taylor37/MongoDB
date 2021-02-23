@@ -12,8 +12,9 @@ router.post('/journals', async (req, res) => {
 	res.json(result);
 });
 
-router.get('/journals', (req, res) => {
-	//res.send;
+router.get('/journals', async (req, res) => {
+	const result = await usersClient.getJournals();
+	res.json(result);
 });
 
 module.exports = router;

@@ -29,6 +29,21 @@ class Mongo {
 		console.log(resultDocument);
 		return resultDocument;
 	}
+
+	async getAll(collectionName) {
+		const cursor = await this.client
+			.db('test')
+			.collection(collectionName)
+			.find({});
+
+		const resultDocuments = [];
+
+		await cursor.forEach((item) => {
+			resultDocuments.push(item);
+		});
+
+		return resultDocuments;
+	}
 }
 
 module.exports = Mongo;
