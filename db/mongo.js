@@ -1,4 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
+
 const config = require('../config');
 
 const uri = config.MONGO_URI;
@@ -17,12 +19,12 @@ class Mongo {
 
 	async insert(collectionName, document) {
 		const result = await this.client
-			.db('test')
+			.db(config.DB_NAME)
 			.collection(collectionName)
 			.insertOne(document);
 
 		const resultDocument = await this.client
-			.db('test')
+			.db(config.DB_NAME)
 			.collection(collectionName)
 			.findOne({ _id: result.insertedId });
 
@@ -32,7 +34,7 @@ class Mongo {
 
 	async getAll(collectionName) {
 		const cursor = await this.client
-			.db('test')
+			.db(config.DB_NAME)
 			.collection(collectionName)
 			.find({});
 
@@ -43,6 +45,15 @@ class Mongo {
 		});
 
 		return resultDocuments;
+	}
+
+	async getOne(collectionName, oid) {
+		const resultDocument = await this.client
+			.db(config.DB_NAME)
+			.collection(collectionName)
+			.findOne({ _id: ObjectID(oid) });
+
+		return resultDocument;
 	}
 }
 

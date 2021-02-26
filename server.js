@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const config = require('./config');
-const usersClient = require('./users/users');
+const journalsClient = require('./db/journals');
 const router = require('./routes/routes');
 
 const start = async () => {
@@ -12,7 +12,7 @@ const start = async () => {
 	app.use(cors());
 	app.use(router);
 
-	await usersClient.init();
+	await journalsClient.init();
 
 	app.listen(config.PORT, () => {
 		console.log(`App listening at port: ${config.PORT}`);

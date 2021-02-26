@@ -1,6 +1,6 @@
 const Mongo = require('./mongo');
 
-class Users extends Mongo {
+class Journals extends Mongo {
 	constructor() {
 		super();
 		this.journalCollection = 'journals';
@@ -25,6 +25,10 @@ class Users extends Mongo {
 	async getJournals() {
 		return await this.getAll(this.journalCollection);
 	}
+
+	async getJournal(oid) {
+		return await this.getOne(this.journalCollection, oid);
+	}
 }
 
-module.exports = new Users();
+module.exports = new Journals();
