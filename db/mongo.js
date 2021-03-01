@@ -11,31 +11,33 @@ class Mongo {
 			useNewUrlParser    : true,
 			useUnifiedTopology : true
 		});
+
+		this.collectionName = 'collection';
 	}
 
 	async init() {
 		await this.client.connect();
 	}
 
-	async insert(collectionName, document) {
+	async insert(document) {
 		const result = await this.client
 			.db(config.DB_NAME)
-			.collection(collectionName)
+			.collection(this.collectionName)
 			.insertOne(document);
 
 		const resultDocument = await this.client
 			.db(config.DB_NAME)
-			.collection(collectionName)
+			.collection(this.collectionName)
 			.findOne({ _id: result.insertedId });
 
 		console.log(resultDocument);
 		return resultDocument;
 	}
 
-	async getAll(collectionName) {
+	async getAll() {
 		const cursor = await this.client
 			.db(config.DB_NAME)
-			.collection(collectionName)
+			.collection(this.collectionName)
 			.find({});
 
 		const resultDocuments = [];
@@ -47,12 +49,27 @@ class Mongo {
 		return resultDocuments;
 	}
 
-	async getOne(collectionName, oid) {
+	async getOne(oid) {
 		const resultDocument = await this.client
 			.db(config.DB_NAME)
-			.collection(collectionName)
+			.collection(this.collectionName)
 			.findOne({ _id: ObjectID(oid) });
 
+		return resultDocument;
+	}
+
+	async updateOne(oid, values) {
+		console.log(values);
+		const resultDocument = await this.client
+			.db(config.DB_NAME)
+			.collection(this.collectionName)
+			.findOneAndUpdate(
+				{ _id: ObjectID(oid) },
+				{
+					$set : { ...values }
+				},
+				{ returnOriginal: false }
+			);
 		return resultDocument;
 	}
 }

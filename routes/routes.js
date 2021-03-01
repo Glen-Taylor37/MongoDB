@@ -27,4 +27,10 @@ router.get('/journals/:id', async (req, res) => {
 	);
 });
 
+router.put('/journals/:id', async (req, res) => {
+	const result = await journalsClient.updateJournal(req.params.id, req.body);
+	res.json(result);
+	console.log(`PUT: /journals/${req.params.id}, response: ${result}`);
+});
+
 module.exports = router;
