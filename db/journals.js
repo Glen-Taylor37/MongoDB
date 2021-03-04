@@ -1,4 +1,5 @@
 const Mongo = require('./mongo');
+const ObjectID = require('mongodb').ObjectID;
 
 class Journals extends Mongo {
 	constructor() {
@@ -7,8 +8,7 @@ class Journals extends Mongo {
 	}
 
 	async addJournal(document) {
-		const newJournalDocument = await this.insert(document);
-		return newJournalDocument;
+		return await this.insert(document);
 	}
 
 	async getJournals() {
@@ -16,11 +16,15 @@ class Journals extends Mongo {
 	}
 
 	async getJournal(oid) {
-		return await this.getOne(oid);
+		return await this.getOne({ _id: ObjectID(oid) });
 	}
 
 	async updateJournal(oid, documentValues) {
-		return await this.updateOne(oid, documentValues);
+		return await this.updateOne({ _id: ObjectID(oid) }, documentValues);
+	}
+
+	async deleteJournal(oid) {
+		return await this.deleteOne({ _id: ObjectID(oid) });
 	}
 }
 

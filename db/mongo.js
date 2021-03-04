@@ -49,28 +49,37 @@ class Mongo {
 		return resultDocuments;
 	}
 
-	async getOne(oid) {
+	async getOne(filter) {
 		const resultDocument = await this.client
 			.db(config.DB_NAME)
 			.collection(this.collectionName)
-			.findOne({ _id: ObjectID(oid) });
+			.findOne(filter);
 
 		return resultDocument;
 	}
 
-	async updateOne(oid, values) {
+	async updateOne(filter, values) {
 		console.log(values);
 		const resultDocument = await this.client
 			.db(config.DB_NAME)
 			.collection(this.collectionName)
 			.findOneAndUpdate(
-				{ _id: ObjectID(oid) },
+				filter,
 				{
 					$set : { ...values }
 				},
 				{ returnOriginal: false }
 			);
 		return resultDocument;
+	}
+
+	async deleteOne(filter) {
+		const result = await this.client
+			.db(config.DB_NAME)
+			.collection(this.collectionName)
+			.deleteOne(filter);
+
+		return result;
 	}
 }
 

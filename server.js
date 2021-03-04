@@ -4,13 +4,15 @@ const bodyParser = require('body-parser');
 
 const config = require('./config');
 const journalsClient = require('./db/journals');
-const router = require('./routes/routes');
+const journalRouter = require('./routes/journals');
+const settingsRouter = require('./routes/settings');
 
 const start = async () => {
 	const app = express();
 	app.use(bodyParser.json());
 	app.use(cors());
-	app.use(router);
+	app.use(journalRouter);
+	app.use(settingsRouter);
 
 	await journalsClient.init();
 

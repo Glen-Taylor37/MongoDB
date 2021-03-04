@@ -1,4 +1,5 @@
 const express = require('express');
+const journals = require('../db/journals');
 const router = express.Router();
 const journalsClient = require('../db/journals');
 
@@ -27,10 +28,16 @@ router.get('/journals/:id', async (req, res) => {
 	);
 });
 
-router.put('/journals/:id', async (req, res) => {
+router.patch('/journals/:id', async (req, res) => {
 	const result = await journalsClient.updateJournal(req.params.id, req.body);
 	res.json(result);
 	console.log(`PUT: /journals/${req.params.id}, response: ${result}`);
+});
+
+router.delete('/journals/:id', async (req, res) => {
+	const result = await journalsClient.deleteJournal(req.params.id);
+	res.json(result);
+	console.log(`DELETE: /journals/${req.params.id}, response: ${result}`);
 });
 
 module.exports = router;

@@ -3,14 +3,18 @@ const Mongo = require('./mongo');
 class Users extends Mongo {
 	constructor() {
 		super();
-		this.journalCollection = 'users';
+		this.collectionName = 'users';
 	}
 
-	addUser(user) {}
+	async addUser(user) {
+		return await this.insert(user);
+	}
 
 	deleteUser(user) {}
 
-	getUsers() {}
+	async getUser(userId) {
+		const user = await this.getOne(userId);
+	}
 
 	updateUser(user) {}
 }
