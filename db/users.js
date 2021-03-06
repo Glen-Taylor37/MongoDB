@@ -7,13 +7,14 @@ class Users extends Mongo {
 	}
 
 	async addUser(user) {
-		return await this.insert(user);
+		return await this._insert(user);
 	}
 
 	deleteUser(user) {}
 
 	async getUser(userId) {
-		const user = await this.getOne(userId);
+		const user = await this._getOne({ userId });
+		console.log(user);
 	}
 
 	updateUser(user) {}

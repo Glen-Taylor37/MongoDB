@@ -19,7 +19,7 @@ class Mongo {
 		await this.client.connect();
 	}
 
-	async insert(document) {
+	async _insert(document) {
 		const result = await this.client
 			.db(config.DB_NAME)
 			.collection(this.collectionName)
@@ -28,13 +28,13 @@ class Mongo {
 		const resultDocument = await this.client
 			.db(config.DB_NAME)
 			.collection(this.collectionName)
-			.findOne({ _id: result.insertedId });
+			.findOne({ _id: result._insertedId });
 
 		console.log(resultDocument);
 		return resultDocument;
 	}
 
-	async getAll() {
+	async _getAll() {
 		const cursor = await this.client
 			.db(config.DB_NAME)
 			.collection(this.collectionName)
@@ -49,7 +49,7 @@ class Mongo {
 		return resultDocuments;
 	}
 
-	async getOne(filter) {
+	async _getOne(filter) {
 		const resultDocument = await this.client
 			.db(config.DB_NAME)
 			.collection(this.collectionName)
@@ -58,7 +58,7 @@ class Mongo {
 		return resultDocument;
 	}
 
-	async updateOne(filter, values) {
+	async _updateOne(filter, values) {
 		console.log(values);
 		const resultDocument = await this.client
 			.db(config.DB_NAME)
@@ -73,11 +73,11 @@ class Mongo {
 		return resultDocument;
 	}
 
-	async deleteOne(filter) {
+	async _deleteOne(filter) {
 		const result = await this.client
 			.db(config.DB_NAME)
 			.collection(this.collectionName)
-			.deleteOne(filter);
+			._deleteOne(filter);
 
 		return result;
 	}

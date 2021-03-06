@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const config = require('./config');
 const journalsClient = require('./db/journals');
+const usersClient = require('./db/users');
 const journalRouter = require('./routes/journals');
 const settingsRouter = require('./routes/settings');
 
@@ -14,6 +15,7 @@ const start = async () => {
 	app.use(journalRouter);
 	app.use(settingsRouter);
 
+	await usersClient.init();
 	await journalsClient.init();
 
 	app.listen(config.PORT, () => {

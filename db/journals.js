@@ -8,23 +8,23 @@ class Journals extends Mongo {
 	}
 
 	async addJournal(document) {
-		return await this.insert(document);
+		return await this._insert(document);
 	}
 
 	async getJournals() {
-		return await this.getAll();
+		return await this._getAll();
 	}
 
 	async getJournal(oid) {
-		return await this.getOne({ _id: ObjectID(oid) });
+		return await this._getOne({ _id: ObjectID(oid) });
 	}
 
 	async updateJournal(oid, documentValues) {
-		return await this.updateOne({ _id: ObjectID(oid) }, documentValues);
+		return await this._updateOne({ _id: ObjectID(oid) }, documentValues);
 	}
 
 	async deleteJournal(oid) {
-		return await this.deleteOne({ _id: ObjectID(oid) });
+		return await this._deleteOne({ _id: ObjectID(oid) });
 	}
 }
 
